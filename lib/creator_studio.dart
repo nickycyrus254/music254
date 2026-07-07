@@ -14,12 +14,21 @@ class CreatorStudio extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         children: const [
           Card(
-            child: ListTile(
-              leading: Icon(Icons.music_note),
-              title: Text("AI Song Generator"),
-              subtitle: Text("Create songs from text prompts"),
-            ),
-          ),
+  child: ListTile(
+    leading: const Icon(Icons.music_note),
+    title: const Text("AI Song Generator"),
+    subtitle: const Text("Create songs from text prompts"),
+    trailing: const Icon(Icons.arrow_forward_ios),
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SongGeneratorPage(),
+        ),
+      );
+    },
+  ),
+),
           SizedBox(height: 12),
           Card(
             child: ListTile(
