@@ -6,46 +6,61 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0B1023),
       appBar: AppBar(
         title: const Text("MelodyVerse AI"),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        centerTitle: true,
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
-        children: [
-          const Text(
-            "Welcome Creator 👋",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
+        children: const [
+          MenuCard(
+            icon: Icons.auto_awesome,
+            title: "Creator Studio",
           ),
-          const SizedBox(height: 25),
-
-          _menuCard(Icons.music_note, "Creator Studio"),
-          _menuCard(Icons.radio, "MelodyVerse Radio"),
-          _menuCard(Icons.tv, "MelodyVerse TV"),
-          _menuCard(Icons.account_balance_wallet, "Melody Wallet"),
-          _menuCard(Icons.person, "Profile"),
+          MenuCard(
+            icon: Icons.radio,
+            title: "MelodyVerse Radio",
+          ),
+          MenuCard(
+            icon: Icons.live_tv,
+            title: "MelodyVerse TV",
+          ),
+          MenuCard(
+            icon: Icons.account_balance_wallet,
+            title: "Melody Wallet",
+          ),
+          MenuCard(
+            icon: Icons.person,
+            title: "Creator Profile",
+          ),
+          MenuCard(
+            icon: Icons.settings,
+            title: "Settings",
+          ),
         ],
       ),
     );
   }
+}
 
-  Widget _menuCard(IconData icon, String title) {
+class MenuCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+
+  const MenuCard({
+    super.key,
+    required this.icon,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
-      color: const Color(0xFF1B2242),
-      margin: const EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 16),
       child: ListTile(
-        leading: Icon(icon, color: Colors.amber),
-        title: Text(
-          title,
-          style: const TextStyle(color: Colors.white),
-        ),
-        trailing: const Icon(Icons.arrow_forward_ios, color: Colors.white54),
+        leading: Icon(icon, size: 32),
+        title: Text(title),
+        trailing: const Icon(Icons.arrow_forward_ios),
       ),
     );
   }
