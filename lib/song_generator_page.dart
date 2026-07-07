@@ -9,36 +9,60 @@ class SongGeneratorPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("AI Song Generator"),
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Describe the song you want",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+        children: [
+          TextField(
+            decoration: InputDecoration(
+              labelText: "Song Title",
+              border: OutlineInputBorder(),
             ),
-            const SizedBox(height: 20),
-            const TextField(
-              maxLines: 5,
-              decoration: InputDecoration(
-                hintText: "Example: Create an Afrobeat love song in Swahili...",
-                border: OutlineInputBorder(),
-              ),
+          ),
+          const SizedBox(height: 16),
+
+          TextField(
+            decoration: InputDecoration(
+              labelText: "Genre (Afrobeats, Gospel, Hip Hop...)",
+              border: OutlineInputBorder(),
             ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text("Generate Song"),
-              ),
+          ),
+          const SizedBox(height: 16),
+
+          TextField(
+            decoration: InputDecoration(
+              labelText: "Artist Style",
+              border: OutlineInputBorder(),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 16),
+
+          TextField(
+            decoration: InputDecoration(
+              labelText: "Language",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          TextField(
+            maxLines: 6,
+            decoration: InputDecoration(
+              labelText: "Describe your song",
+              hintText: "Example: A romantic Afrobeat song in Swahili...",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.auto_awesome),
+              label: const Text("Generate Song"),
+            ),
+          ),
+        ],
       ),
     );
   }
