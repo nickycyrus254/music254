@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'home_page.dart';
 
 void main() {
   runApp(const MelodyVerseAI());
@@ -17,7 +18,7 @@ class MelodyVerseAI extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFF050814),
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      home: const HomePage(),
     );
   }
 }
