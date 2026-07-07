@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'creator_studio.dart';
+import 'radio_page.dart';
+import 'tv_page.dart';
+import 'wallet_page.dart';
+import 'profile_page.dart';
+import 'settings_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,70 +12,121 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF0B1023),
       appBar: AppBar(
         title: const Text("MelodyVerse AI"),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         centerTitle: true,
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
-        children: const [
-          MenuCard(
-            icon: Icons.auto_awesome,
-            title: "Creator Studio",
+        children: [
+          const Text(
+            "Welcome Creator ⭐",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          MenuCard(
-            icon: Icons.radio,
-            title: "MelodyVerse Radio",
+
+          const SizedBox(height: 8),
+
+          const Text(
+            "Create. Inspire. Earn.",
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 18,
+            ),
           ),
-          MenuCard(
-            icon: Icons.live_tv,
-            title: "MelodyVerse TV",
+
+          const SizedBox(height: 30),
+
+          _menuCard(
+            context,
+            Icons.auto_awesome,
+            "Creator Studio",
+            const CreatorStudio(),
           ),
-          MenuCard(
-            icon: Icons.account_balance_wallet,
-            title: "Melody Wallet",
+
+          _menuCard(
+            context,
+            Icons.radio,
+            "MelodyVerse Radio",
+            const RadioPage(),
           ),
-          MenuCard(
-            icon: Icons.person,
-            title: "Creator Profile",
+
+          _menuCard(
+            context,
+            Icons.live_tv,
+            "MelodyVerse TV",
+            const TvPage(),
           ),
-          MenuCard(
-            icon: Icons.settings,
-            title: "Settings",
+
+          _menuCard(
+            context,
+            Icons.account_balance_wallet,
+            "Melody Wallet",
+            const WalletPage(),
+          ),
+
+          _menuCard(
+            context,
+            Icons.person,
+            "Creator Profile",
+            const ProfilePage(),
+          ),
+
+          _menuCard(
+            context,
+            Icons.settings,
+            "Settings",
+            const SettingsPage(),
           ),
         ],
       ),
     );
   }
-}
 
-class MenuCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-
-  const MenuCard({
-    super.key,
-    required this.icon,
-    required this.title,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _menuCard(
+    BuildContext context,
+    IconData icon,
+    String title,
+    Widget page,
+  ) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      color: const Color(0xFF1B2242),
+      margin: const EdgeInsets.only(bottom: 18),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+      ),
       child: ListTile(
-        leading: Icon(icon, size: 32),
-        title: Text(title),
-        trailing: const Icon(Icons.arrow_forward_ios),
+        contentPadding: const EdgeInsets.all(18),
+        leading: Icon(
+          icon,
+          color: Colors.amber,
+          size: 34,
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        trailing: const Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.white70,
+        ),
         onTap: () {
-          if (title == "Creator Studio") {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const CreatorStudio(),
-              ),
-            );
-          }
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => page,
+            ),
+          );
         },
       ),
     );
