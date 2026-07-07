@@ -12,7 +12,7 @@ class CreatorStudio extends StatelessWidget {
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
-        children: const [
+        children: [
          Card(
   child: ListTile(
     leading: const Icon(Icons.music_note),
