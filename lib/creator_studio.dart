@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'song_generator_page.dart';
 
 class CreatorStudio extends StatelessWidget {
   const CreatorStudio({super.key});
