@@ -13,7 +13,7 @@ class CreatorStudio extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: const [
-          Card(
+         Card(
   child: ListTile(
     leading: const Icon(Icons.music_note),
     title: const Text("AI Song Generator"),
