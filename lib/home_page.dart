@@ -59,10 +59,17 @@ class MenuCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       child: ListTile(
-        leading: Icon(icon, size: 32),
-        title: Text(title),
-        trailing: const Icon(Icons.arrow_forward_ios),
-      ),
-    );
+  leading: Icon(icon, size: 32),
+  title: Text(title),
+  trailing: const Icon(Icons.arrow_forward_ios),
+  onTap: () {
+    if (title == "Creator Studio") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const CreatorStudio(),
+        ),
+      );
+    }
   }
-}
+)
