@@ -5,7 +5,6 @@ import 'melody_studio.dart';
 import 'voice_studio.dart';
 import 'media_studio.dart';
 
-
 class WorkspacePage extends StatefulWidget {
   final Song song;
 
@@ -85,62 +84,9 @@ class _WorkspacePageState extends State<WorkspacePage>
     );
   }
 
-  Widget buildPlaceholder(
-    String title,
-    IconData icon,
-    String description,
-  ) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Card(
-          elevation: 5,
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-
-                Icon(
-                  icon,
-                  color: Colors.deepPurple,
-                  size: 70,
-                ),
-
-                const SizedBox(height: 20),
-
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                const SizedBox(height: 12),
-
-                Text(
-                  description,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                  ),
-                ),
-
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       floatingActionButton: FloatingActionButton.extended(
         onPressed: saveProject,
         icon: const Icon(Icons.save),
@@ -148,12 +94,10 @@ class _WorkspacePageState extends State<WorkspacePage>
       ),
 
       appBar: AppBar(
-        elevation: 0,
+        title: Text(widget.song.title),
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
-
-        title: Text(widget.song.title),
 
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(90),
@@ -161,16 +105,13 @@ class _WorkspacePageState extends State<WorkspacePage>
             children: [
 
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
 
                     LinearProgressIndicator(
                       value: progress,
                       minHeight: 8,
-                      borderRadius:
-                          BorderRadius.circular(10),
                     ),
 
                     const SizedBox(height: 8),
@@ -181,15 +122,60 @@ class _WorkspacePageState extends State<WorkspacePage>
                         color: Colors.white,
                       ),
                     ),
+
+                    const SizedBox(height: 8),
+
                   ],
                 ),
               ),
-              
-             body: TabBarView(
-            controller: _tabController,
-        children: [
 
-          /// ==========================
+              TabBar(
+                controller: _tabController,
+                isScrollable: true,
+                tabs: const [
+
+                  Tab(
+                    icon: Icon(Icons.lyrics),
+                    text: "Lyrics",
+                  ),
+
+                  Tab(
+                    icon: Icon(Icons.music_note),
+                    text: "Beat",
+                  ),
+
+                  Tab(
+                    icon: Icon(Icons.piano),
+                    text: "Melody",
+                  ),
+
+                  Tab(
+                    icon: Icon(Icons.mic),
+                    text: "Voice",
+                  ),
+
+                  Tab(
+                    icon: Icon(Icons.movie),
+                    text: "Media",
+                  ),
+
+                  Tab(
+                    icon: Icon(Icons.publish),
+                    text: "Publish",
+                  ),
+
+                ],
+              ),
+
+            ],
+          ),
+        ),
+      ),
+
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+                    /// ==========================
           /// LYRICS TAB
           /// ==========================
           SingleChildScrollView(
@@ -203,8 +189,7 @@ class _WorkspacePageState extends State<WorkspacePage>
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
 
                         Text(
@@ -222,7 +207,9 @@ class _WorkspacePageState extends State<WorkspacePage>
                             const Icon(Icons.category,
                                 color: Colors.deepPurple),
                             const SizedBox(width: 8),
-                            Text("Genre: ${widget.song.genre}"),
+                            Expanded(
+                              child: Text("Genre: ${widget.song.genre}"),
+                            ),
                           ],
                         ),
 
@@ -233,7 +220,9 @@ class _WorkspacePageState extends State<WorkspacePage>
                             const Icon(Icons.emoji_emotions,
                                 color: Colors.orange),
                             const SizedBox(width: 8),
-                            Text("Mood: ${widget.song.mood}"),
+                            Expanded(
+                              child: Text("Mood: ${widget.song.mood}"),
+                            ),
                           ],
                         ),
 
@@ -244,7 +233,9 @@ class _WorkspacePageState extends State<WorkspacePage>
                             const Icon(Icons.person,
                                 color: Colors.green),
                             const SizedBox(width: 8),
-                            Text("Artist: ${widget.song.artist}"),
+                            Expanded(
+                              child: Text("Artist: ${widget.song.artist}"),
+                            ),
                           ],
                         ),
 
@@ -269,11 +260,9 @@ class _WorkspacePageState extends State<WorkspacePage>
                   controller: _lyricsController,
                   maxLines: 20,
                   decoration: InputDecoration(
-                    hintText:
-                        "Write or edit your lyrics here...",
+                    hintText: "Write or edit your lyrics...",
                     border: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     filled: true,
                   ),
@@ -297,17 +286,16 @@ class _WorkspacePageState extends State<WorkspacePage>
           /// BEAT TAB
           /// ==========================
           const BeatStudio(),
-
-          /// ==========================
+                    /// ==========================
           /// MELODY TAB
           /// ==========================
           const MelodyStudio(),
-          
+
           /// ==========================
           /// VOICE TAB
           /// ==========================
           const VoiceStudio(),
-          
+
           /// ==========================
           /// MEDIA TAB
           /// ==========================
@@ -355,7 +343,7 @@ class _WorkspacePageState extends State<WorkspacePage>
                       const SizedBox(height: 20),
 
                       const Text(
-                        "Publish your finished project when you're satisfied with the lyrics, beat, melody, vocals and media.",
+                        "Your project is ready to publish when you're satisfied with the lyrics, beat, melody, vocals and media.",
                         textAlign: TextAlign.center,
                       ),
 
@@ -366,21 +354,19 @@ class _WorkspacePageState extends State<WorkspacePage>
                         child: ElevatedButton.icon(
                           onPressed: publishProject,
                           icon: const Icon(Icons.publish),
-                          label: const Text(
-                            "Publish Project",
-                          ),
+                          label: const Text("Publish Project"),
                         ),
                       ),
+
                     ],
                   ),
                 ),
               ),
             ),
           ),
+
         ],
       ),
     );
   }
 }
-              
-              
