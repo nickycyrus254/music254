@@ -25,10 +25,12 @@ class ProjectsPage extends StatelessWidget {
                 final song = songs[index];
 
                 return Card(
+                  margin: const EdgeInsets.all(12),
                   child: ListTile(
                     leading: const Icon(Icons.music_note),
                     title: Text(song.title),
                     subtitle: Text(song.genre),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 );
               },
