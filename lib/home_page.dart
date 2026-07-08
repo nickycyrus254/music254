@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'creator_studio.dart';
+import 'projects_page.dart';
 import 'radio_page.dart';
 import 'tv_page.dart';
 import 'wallet_page.dart';
@@ -15,13 +17,14 @@ class HomePage extends StatelessWidget {
       backgroundColor: const Color(0xFF0B1023),
       appBar: AppBar(
         title: const Text("MelodyVerse AI"),
+        centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        centerTitle: true,
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
+
           const Text(
             "Welcome Creator ⭐",
             style: TextStyle(
@@ -34,7 +37,7 @@ class HomePage extends StatelessWidget {
           const SizedBox(height: 8),
 
           const Text(
-            "Create. Inspire. Earn.",
+            "Create • Inspire • Earn",
             style: TextStyle(
               color: Colors.white70,
               fontSize: 18,
@@ -48,6 +51,13 @@ class HomePage extends StatelessWidget {
             Icons.auto_awesome,
             "Creator Studio",
             const CreatorStudio(),
+          ),
+
+          _menuCard(
+            context,
+            Icons.folder,
+            "My Projects",
+            const ProjectsPage(),
           ),
 
           _menuCard(
@@ -68,21 +78,21 @@ class HomePage extends StatelessWidget {
             context,
             Icons.account_balance_wallet,
             "Melody Wallet",
-            WalletPage(),
+            const WalletPage(),
           ),
 
           _menuCard(
             context,
             Icons.person,
             "Creator Profile",
-            ProfilePage(),
+            const ProfilePage(),
           ),
 
           _menuCard(
             context,
             Icons.settings,
             "Settings",
-            SettingsPage(),
+            const SettingsPage(),
           ),
         ],
       ),
