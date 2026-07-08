@@ -3,7 +3,6 @@ class Song {
   final String genre;
   final String mood;
   final String artist;
-  final String prompt;
   final String lyrics;
 
   Song({
@@ -11,7 +10,6 @@ class Song {
     required this.genre,
     required this.mood,
     required this.artist,
-    required this.prompt,
     required this.lyrics,
   });
 }
