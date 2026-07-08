@@ -3,6 +3,7 @@ import 'models/song.dart';
 import 'beat_studio.dart';
 import 'melody_studio.dart';
 import 'voice_studio.dart';
+import 'media_studio.dart';
 
 
 class WorkspacePage extends StatefulWidget {
@@ -310,7 +311,7 @@ class _WorkspacePageState extends State<WorkspacePage>
           /// ==========================
           /// MEDIA TAB
           /// ==========================
-          const Mediatab(),
+          const MediaStudio(),
 
           /// ==========================
           /// PUBLISH TAB
