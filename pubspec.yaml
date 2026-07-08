@@ -31,6 +31,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  record: ^6.1.1
+  just_audio: ^0.10.4
+  path_provider: ^2.1.5
+
   http: ^1.2.1
   cupertino_icons: ^1.0.8
 
