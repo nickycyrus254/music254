@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'models/song.dart';
 import 'beat_studio.dart';
 import 'melody_studio.dart';
+import 'voice_studio.dart';
+
 
 class WorkspacePage extends StatefulWidget {
   final Song song;
@@ -303,20 +305,12 @@ class _WorkspacePageState extends State<WorkspacePage>
           /// ==========================
           /// VOICE TAB
           /// ==========================
-          buildPlaceholder(
-            "Voice Studio",
-            Icons.mic,
-            "Generate AI vocals, harmonies and voice effects.",
-          ),
-
+          const VoiceStudio(),
+          
           /// ==========================
           /// MEDIA TAB
           /// ==========================
-          buildPlaceholder(
-            "Media Studio",
-            Icons.movie,
-            "Create album artwork, lyric videos and promotional content.",
-          ),
+          const Mediatab(),
 
           /// ==========================
           /// PUBLISH TAB
