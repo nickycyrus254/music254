@@ -10,7 +10,7 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MelodyVerseAI extends StatelessWidget {
+class MyApp extends StatelessWidget {
   const MelodyVerseAI({super.key});
 
   @override
