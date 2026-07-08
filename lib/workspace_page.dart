@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'models/song.dart';
 import 'beat_studio.dart';
+import 'melody_studio.dart';
 
 class WorkspacePage extends StatefulWidget {
   final Song song;
@@ -297,12 +298,8 @@ class _WorkspacePageState extends State<WorkspacePage>
           /// ==========================
           /// MELODY TAB
           /// ==========================
-          buildPlaceholder(
-            "Melody Studio",
-            Icons.piano,
-            "Create AI melodies, chords and harmonies for your song.",
-          ),
-
+          const MelodyStudio(),
+          
           /// ==========================
           /// VOICE TAB
           /// ==========================
