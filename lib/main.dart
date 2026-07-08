@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
-  runApp(const MelodyVerseAI());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+
+  runApp(const MyApp());
 }
 
 class MelodyVerseAI extends StatelessWidget {
