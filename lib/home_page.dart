@@ -68,21 +68,21 @@ class HomePage extends StatelessWidget {
             context,
             Icons.account_balance_wallet,
             "Melody Wallet",
-            const WalletPage(),
+            WalletPage(),
           ),
 
           _menuCard(
             context,
             Icons.person,
             "Creator Profile",
-            const ProfilePage(),
+            ProfilePage(),
           ),
 
           _menuCard(
             context,
             Icons.settings,
             "Settings",
-            const SettingsPage(),
+            SettingsPage(),
           ),
         ],
       ),
