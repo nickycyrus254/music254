@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'ai/ai_service.dart';
-import 'models/song.dart';
-import 'services/song_service.dart';
-
 class SongGeneratorPage extends StatefulWidget {
   const SongGeneratorPage({super.key});
 
@@ -12,148 +8,170 @@ class SongGeneratorPage extends StatefulWidget {
 }
 
 class _SongGeneratorPageState extends State<SongGeneratorPage> {
-  final titleController = TextEditingController();
-  final genreController = TextEditingController();
-  final moodController = TextEditingController();
-  final artistController = TextEditingController();
-  final promptController = TextEditingController();
+  final TextEditingController promptController = TextEditingController();
 
-  String lyrics = "";
-  bool loading = false;
-
-  Future<void> generateSong() async {
-    setState(() {
-      loading = true;
-    });
-
-    lyrics = await AIService.generateLyrics(
-      title: titleController.text,
-      genre: genreController.text,
-      mood: moodController.text,
-      artist: artistController.text,
-      prompt: promptController.text,
-    );
-
-    setState(() {
-      loading = false;
-    });
-  }
+  bool showDetails = false;
+  bool advancedMode = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("AI Song Generator"),
+        centerTitle: true,
       ),
-      body: ListView(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
-        children: [
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
 
-          TextField(
-            controller: titleController,
-            decoration: const InputDecoration(
-              labelText: "Song Title",
-              border: OutlineInputBorder(),
-            ),
-          ),
+            const SizedBox(height: 10),
 
-          const SizedBox(height:16),
-
-          TextField(
-            controller: genreController,
-            decoration: const InputDecoration(
-              labelText: "Genre",
-              border: OutlineInputBorder(),
-            ),
-          ),
-
-          const SizedBox(height:16),
-
-          TextField(
-            controller: moodController,
-            decoration: const InputDecoration(
-              labelText: "Mood",
-              border: OutlineInputBorder(),
-            ),
-          ),
-
-          const SizedBox(height:16),
-
-          TextField(
-            controller: artistController,
-            decoration: const InputDecoration(
-              labelText: "Artist Style",
-              border: OutlineInputBorder(),
-            ),
-          ),
-
-          const SizedBox(height:16),
-
-          TextField(
-            controller: promptController,
-            maxLines: 6,
-            decoration: const InputDecoration(
-              labelText: "Describe your song",
-              border: OutlineInputBorder(),
-            ),
-          ),
-
-          const SizedBox(height:24),
-
-          ElevatedButton.icon(
-            onPressed: loading ? null : generateSong,
-            icon: const Icon(Icons.auto_awesome),
-            label: Text(
-              loading ? "Generating..." : "Generate Song",
-            ),
-          ),
-
-          const SizedBox(height:12),
-
-          ElevatedButton.icon(
-            icon: const Icon(Icons.save),
-            label: const Text("Save Song"),
-            onPressed: () {
-
-              SongService.saveSong(
-                Song(
-                  title: titleController.text,
-                  genre: genreController.text,
-                  mood: moodController.text,
-                  artist: artistController.text,
-                  prompt: promptController.text,
-                  lyrics: lyrics,
-                ),
-              );
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Song Saved"),
-                ),
-              );
-            },
-          ),
-
-          const SizedBox(height:24),
-
-          if (loading)
-            const Center(
-              child: CircularProgressIndicator(),
+            const Text(
+              "Create now. Refine later.",
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.grey,
+                fontStyle: FontStyle.italic,
+              ),
             ),
 
-          if (lyrics.isNotEmpty)
+            const SizedBox(height: 15),
 
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  lyrics,
-                  style: const TextStyle(fontSize:16),
+            const Text(
+              "🎵 Create with\nMelodyVerse AI",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 34,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            const Text(
+              "Describe your idea in your own words.\nMelodyVerse AI handles the technical details.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            TextField(
+              controller: promptController,
+              maxLines: 8,
+              decoration: InputDecoration(
+                hintText:
+                    "Example:\nCreate an emotional Afro-pop song about never giving up.",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
             ),
-        ],
-      ),
-    );
-  }
-}
+
+            const SizedBox(height: 20),
+
+            ListTile(
+              title: const Text("Add Details (Optional)"),
+              trailing: Icon(
+                showDetails
+                    ? Icons.keyboard_arrow_up
+                    : Icons.keyboard_arrow_down,
+              ),
+              onTap: () {
+                setState(() {
+                  showDetails = !showDetails;
+                });
+              },
+            ),
+
+            if (showDetails) ...[
+
+              const SizedBox(height: 10),
+
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: "Genre",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: "Mood",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: "Language",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: "Artist Inspiration",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ],
+
+            const SizedBox(height: 20),
+
+            SwitchListTile(
+              title: const Text("Advanced Mode"),
+              subtitle: const Text("Show BPM, Key and other settings"),
+              value: advancedMode,
+              onChanged: (value) {
+                setState(() {
+                  advancedMode = value;
+                });
+              },
+            ),
+
+            if (advancedMode) ...[
+
+              const SizedBox(height: 10),
+
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: "BPM",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: "Key",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: "Song Structure",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ],
+
+            const SizedBox(height: 30),
+
+            SizedBox(
+              width:
