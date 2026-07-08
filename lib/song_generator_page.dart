@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'workspace_page.dart';
 
 class SongGeneratorPage extends StatefulWidget {
   const SongGeneratorPage({super.key});
@@ -13,6 +14,16 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
   bool showDetails = false;
   bool advancedMode = false;
 
+  final TextEditingController genreController = TextEditingController();
+  final TextEditingController moodController = TextEditingController();
+  final TextEditingController languageController = TextEditingController();
+  final TextEditingController artistController = TextEditingController();
+
+  final TextEditingController bpmController = TextEditingController();
+  final TextEditingController keyController = TextEditingController();
+  final TextEditingController structureController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,9 +36,6 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
-            const SizedBox(height: 10),
-
             const Text(
               "Create now. Refine later.",
               style: TextStyle(
@@ -37,7 +45,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
               ),
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 12),
 
             const Text(
               "🎵 Create with\nMelodyVerse AI",
@@ -51,24 +59,20 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             const SizedBox(height: 15),
 
             const Text(
-              "Describe your idea in your own words.\nMelodyVerse AI handles the technical details.",
+              "Describe your song idea. MelodyVerse AI handles the technical work.",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
             ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: 25),
 
             TextField(
               controller: promptController,
-              maxLines: 8,
+              maxLines: 6,
               decoration: InputDecoration(
                 hintText:
-                    "Example:\nCreate an emotional Afro-pop song about never giving up.",
+                    "Example:\nCreate an Afro-pop song about hope and resilience.",
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(18),
                 ),
               ),
             ),
@@ -76,7 +80,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             const SizedBox(height: 20),
 
             ListTile(
-              title: const Text("Add Details (Optional)"),
+              title: const Text("Add Details"),
               trailing: Icon(
                 showDetails
                     ? Icons.keyboard_arrow_up
@@ -88,12 +92,11 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
                 });
               },
             ),
-
-            if (showDetails) ...[
-
+                        if (showDetails) ...[
               const SizedBox(height: 10),
 
               TextField(
+                controller: genreController,
                 decoration: const InputDecoration(
                   labelText: "Genre",
                   border: OutlineInputBorder(),
@@ -103,6 +106,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
               const SizedBox(height: 15),
 
               TextField(
+                controller: moodController,
                 decoration: const InputDecoration(
                   labelText: "Mood",
                   border: OutlineInputBorder(),
@@ -112,6 +116,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
               const SizedBox(height: 15),
 
               TextField(
+                controller: languageController,
                 decoration: const InputDecoration(
                   labelText: "Language",
                   border: OutlineInputBorder(),
@@ -121,6 +126,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
               const SizedBox(height: 15),
 
               TextField(
+                controller: artistController,
                 decoration: const InputDecoration(
                   labelText: "Artist Inspiration",
                   border: OutlineInputBorder(),
@@ -132,7 +138,8 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
 
             SwitchListTile(
               title: const Text("Advanced Mode"),
-              subtitle: const Text("Show BPM, Key and other settings"),
+              subtitle: const Text(
+                  "Show BPM, Key and Song Structure settings"),
               value: advancedMode,
               onChanged: (value) {
                 setState(() {
@@ -142,10 +149,10 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             ),
 
             if (advancedMode) ...[
-
               const SizedBox(height: 10),
 
               TextField(
+                controller: bpmController,
                 decoration: const InputDecoration(
                   labelText: "BPM",
                   border: OutlineInputBorder(),
@@ -155,6 +162,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
               const SizedBox(height: 15),
 
               TextField(
+                controller: keyController,
                 decoration: const InputDecoration(
                   labelText: "Key",
                   border: OutlineInputBorder(),
@@ -164,6 +172,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
               const SizedBox(height: 15),
 
               TextField(
+                controller: structureController,
                 decoration: const InputDecoration(
                   labelText: "Song Structure",
                   border: OutlineInputBorder(),
@@ -174,4 +183,31 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             const SizedBox(height: 30),
 
             SizedBox(
-              width:
+              width: double.infinity,
+              height: 55,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.auto_awesome),
+                label: const Text(
+                  "Generate Song",
+                  style: TextStyle(fontSize: 18),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => WorkspacePage(
+                        song: promptController.text,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+}
