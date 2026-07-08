@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'models/song.dart';
 import 'services/song_service.dart';
-import 'song_details_page.dart';
+import 'workspace_page.dart';
 
 class ProjectsPage extends StatefulWidget {
   const ProjectsPage({super.key});
