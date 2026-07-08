@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'models/song.dart';
+import 'services/song_service.dart';
+
 class SongGeneratorPage extends StatefulWidget {
   const SongGeneratorPage({super.key});
 
@@ -8,7 +11,6 @@ class SongGeneratorPage extends StatefulWidget {
 }
 
 class _SongGeneratorPageState extends State<SongGeneratorPage> {
-
   final titleController = TextEditingController();
   final genreController = TextEditingController();
   final moodController = TextEditingController();
@@ -35,7 +37,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             ),
           ),
 
-          const SizedBox(height:16),
+          const SizedBox(height: 16),
 
           TextField(
             controller: genreController,
@@ -45,7 +47,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             ),
           ),
 
-          const SizedBox(height:16),
+          const SizedBox(height: 16),
 
           TextField(
             controller: moodController,
@@ -55,7 +57,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             ),
           ),
 
-          const SizedBox(height:16),
+          const SizedBox(height: 16),
 
           TextField(
             controller: artistController,
@@ -65,26 +67,24 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             ),
           ),
 
-          const SizedBox(height:16),
+          const SizedBox(height: 16),
 
           TextField(
             controller: promptController,
-            maxLines:6,
+            maxLines: 5,
             decoration: const InputDecoration(
               labelText: "Describe your song",
               border: OutlineInputBorder(),
             ),
           ),
 
-          const SizedBox(height:24),
+          const SizedBox(height: 24),
 
           ElevatedButton.icon(
             icon: const Icon(Icons.auto_awesome),
             label: const Text("Generate Song"),
-            onPressed: (){
-
+            onPressed: () {
               setState(() {
-
                 lyrics = """
 
 🎵 ${titleController.text}
@@ -93,44 +93,72 @@ Genre: ${genreController.text}
 
 Mood: ${moodController.text}
 
-Inspired by: ${artistController.text}
+Artist Style: ${artistController.text}
 
-
-Verse 1
+Prompt:
 
 ${promptController.text}
 
-This is where the real AI will generate complete lyrics.
+----------------------------
 
-
-Chorus
-
-MelodyVerse AI
-
-Where music ideas become reality.
+This is where AI-generated lyrics
+will appear in the next version
+of MelodyVerse AI.
 
 """;
-
               });
+            },
+          ),
+
+          const SizedBox(height: 12),
+
+          ElevatedButton.icon(
+            icon: const Icon(Icons.save),
+            label: const Text("Save Song"),
+            onPressed: () {
+
+              SongService.saveSong(
+
+                Song(
+
+                  title: titleController.text,
+
+                  genre: genreController.text,
+
+                  mood: moodController.text,
+
+                  artist: artistController.text,
+
+                  prompt: promptController.text,
+
+                  lyrics: lyrics,
+
+                ),
+
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Song saved successfully!"),
+                ),
+              );
 
             },
           ),
 
-          const SizedBox(height:30),
+          const SizedBox(height: 24),
 
-          if(lyrics.isNotEmpty)
+          if (lyrics.isNotEmpty)
 
             Card(
-              elevation:4,
               child: Padding(
-                padding: const EdgeInsets.all(18),
+                padding: const EdgeInsets.all(16),
                 child: Text(
                   lyrics,
-                  style: const TextStyle(fontSize:18),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
-            )
-
+            ),
         ],
       ),
     );
