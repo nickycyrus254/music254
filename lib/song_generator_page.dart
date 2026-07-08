@@ -8,7 +8,14 @@ class SongGeneratorPage extends StatefulWidget {
 }
 
 class _SongGeneratorPageState extends State<SongGeneratorPage> {
-  String generatedLyrics = "";
+
+  final titleController = TextEditingController();
+  final genreController = TextEditingController();
+  final moodController = TextEditingController();
+  final artistController = TextEditingController();
+  final promptController = TextEditingController();
+
+  String lyrics = "";
 
   @override
   Widget build(BuildContext context) {
@@ -19,88 +26,111 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
+
           TextField(
+            controller: titleController,
             decoration: const InputDecoration(
               labelText: "Song Title",
               border: OutlineInputBorder(),
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height:16),
 
           TextField(
+            controller: genreController,
             decoration: const InputDecoration(
-              labelText: "Genre (Afrobeats, Gospel, Hip Hop...)",
+              labelText: "Genre",
               border: OutlineInputBorder(),
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height:16),
 
           TextField(
+            controller: moodController,
+            decoration: const InputDecoration(
+              labelText: "Mood",
+              border: OutlineInputBorder(),
+            ),
+          ),
+
+          const SizedBox(height:16),
+
+          TextField(
+            controller: artistController,
             decoration: const InputDecoration(
               labelText: "Artist Style",
               border: OutlineInputBorder(),
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height:16),
 
           TextField(
-            decoration: const InputDecoration(
-              labelText: "Language",
-              border: OutlineInputBorder(),
-            ),
-          ),
-
-          const SizedBox(height: 16),
-
-          TextField(
-            maxLines: 5,
+            controller: promptController,
+            maxLines:6,
             decoration: const InputDecoration(
               labelText: "Describe your song",
-              hintText: "Example: A romantic Afrobeat song in Swahili...",
               border: OutlineInputBorder(),
             ),
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height:24),
 
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton.icon(
-              onPressed: () {
-                setState(() {
-                  generatedLyrics = '''
-🎵 MelodyVerse AI Demo
+          ElevatedButton.icon(
+            icon: const Icon(Icons.auto_awesome),
+            label: const Text("Generate Song"),
+            onPressed: (){
+
+              setState(() {
+
+                lyrics = """
+
+🎵 ${titleController.text}
+
+Genre: ${genreController.text}
+
+Mood: ${moodController.text}
+
+Inspired by: ${artistController.text}
+
 
 Verse 1
-This is your first AI-generated song.
-Dream it. Build it. Sing it.
+
+${promptController.text}
+
+This is where the real AI will generate complete lyrics.
+
 
 Chorus
-MelodyVerse AI,
+
+MelodyVerse AI
+
 Where music ideas become reality.
-''';
-                });
-              },
-              icon: const Icon(Icons.auto_awesome),
-              label: const Text("Generate Song"),
-            ),
+
+""";
+
+              });
+
+            },
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height:30),
 
-          if (generatedLyrics.isNotEmpty)
+          if(lyrics.isNotEmpty)
+
             Card(
+              elevation:4,
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(18),
                 child: Text(
-                  generatedLyrics,
-                  style: const TextStyle(fontSize: 16),
+                  lyrics,
+                  style: const TextStyle(fontSize:18),
                 ),
               ),
-            ),
+            )
+
         ],
       ),
     );
