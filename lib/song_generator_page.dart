@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'ai/ai_service.dart';
 import 'models/song.dart';
 import 'services/song_service.dart';
 
@@ -18,6 +19,25 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
   final promptController = TextEditingController();
 
   String lyrics = "";
+  bool loading = false;
+
+  Future<void> generateSong() async {
+    setState(() {
+      loading = true;
+    });
+
+    lyrics = await AIService.generateLyrics(
+      title: titleController.text,
+      genre: genreController.text,
+      mood: moodController.text,
+      artist: artistController.text,
+      prompt: promptController.text,
+    );
+
+    setState(() {
+      loading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +57,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height:16),
 
           TextField(
             controller: genreController,
@@ -47,7 +67,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height:16),
 
           TextField(
             controller: moodController,
@@ -57,7 +77,7 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height:16),
 
           TextField(
             controller: artistController,
@@ -67,50 +87,28 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height:16),
 
           TextField(
             controller: promptController,
-            maxLines: 5,
+            maxLines: 6,
             decoration: const InputDecoration(
               labelText: "Describe your song",
               border: OutlineInputBorder(),
             ),
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height:24),
 
           ElevatedButton.icon(
+            onPressed: loading ? null : generateSong,
             icon: const Icon(Icons.auto_awesome),
-            label: const Text("Generate Song"),
-            onPressed: () {
-              setState(() {
-                lyrics = """
-
-🎵 ${titleController.text}
-
-Genre: ${genreController.text}
-
-Mood: ${moodController.text}
-
-Artist Style: ${artistController.text}
-
-Prompt:
-
-${promptController.text}
-
-----------------------------
-
-This is where AI-generated lyrics
-will appear in the next version
-of MelodyVerse AI.
-
-""";
-              });
-            },
+            label: Text(
+              loading ? "Generating..." : "Generate Song",
+            ),
           ),
 
-          const SizedBox(height: 12),
+          const SizedBox(height:12),
 
           ElevatedButton.icon(
             icon: const Icon(Icons.save),
@@ -118,35 +116,30 @@ of MelodyVerse AI.
             onPressed: () {
 
               SongService.saveSong(
-
                 Song(
-
                   title: titleController.text,
-
                   genre: genreController.text,
-
                   mood: moodController.text,
-
                   artist: artistController.text,
-
                   prompt: promptController.text,
-
                   lyrics: lyrics,
-
                 ),
-
               );
 
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text("Song saved successfully!"),
+                  content: Text("Song Saved"),
                 ),
               );
-
             },
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height:24),
+
+          if (loading)
+            const Center(
+              child: CircularProgressIndicator(),
+            ),
 
           if (lyrics.isNotEmpty)
 
@@ -155,7 +148,7 @@ of MelodyVerse AI.
                 padding: const EdgeInsets.all(16),
                 child: Text(
                   lyrics,
-                  style: const TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize:16),
                 ),
               ),
             ),
