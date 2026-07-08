@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'workspace_page.dart';
+import 'models/song.dart';
 
 class SongGeneratorPage extends StatefulWidget {
   const SongGeneratorPage({super.key});
@@ -183,28 +184,36 @@ class _SongGeneratorPageState extends State<SongGeneratorPage> {
             const SizedBox(height: 30),
 
             SizedBox(
-              width: double.infinity,
-              height: 55,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.auto_awesome),
-                label: const Text(
-                  "Generate Song",
-                  style: TextStyle(fontSize: 18),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => WorkspacePage(
-                        song: promptController.text,
-                      ),
-                    ),
-                  );
-                },
-              ),
+  width: double.infinity,
+  height: 55,
+  child: ElevatedButton.icon(
+    icon: const Icon(Icons.auto_awesome),
+    label: const Text(
+      "Generate Song",
+      style: TextStyle(fontSize: 18),
+    ),
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => WorkspacePage(
+            song: Song(
+              title: promptController.text.isEmpty
+                  ? "Untitled Song"
+                  : promptController.text,
+              genre: genreController.text,
+              mood: moodController.text,
+              artist: artistController.text,
+              lyrics: "",
             ),
+          ),
+        ),
+      );
+    },
+  ),
+),
 
-            const SizedBox(height: 20),
+const SizedBox(height: 20),
           ],
         ),
       ),
