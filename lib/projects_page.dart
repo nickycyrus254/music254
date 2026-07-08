@@ -50,7 +50,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => SongDetailsPage(song: song),
+                          builder: (_) => WorkspacePage(song: song)
                         ),
                       );
                     },
