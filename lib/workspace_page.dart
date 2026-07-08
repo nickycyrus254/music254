@@ -181,12 +181,12 @@ class _WorkspacePageState extends State<WorkspacePage>
                         color: Colors.white,
                       ),
                     ),
-
                   ],
                 ),
               ),
-      body: TabBarView(
-        controller: _tabController,
+              
+             body: TabBarView(
+            controller: _tabController,
         children: [
 
           /// ==========================
@@ -371,58 +371,16 @@ class _WorkspacePageState extends State<WorkspacePage>
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
               ),
             ),
           ),
-
         ],
       ),
     );
   }
 }
-              TabBar(
-                controller: _tabController,
-                isScrollable: true,
-                tabs: const [
-
-                  Tab(
-                    icon: Icon(Icons.lyrics),
-                    text: "Lyrics",
-                  ),
-
-                  Tab(
-                    icon: Icon(Icons.music_note),
-                    text: "Beat",
-                  ),
-
-                  Tab(
-                    icon: Icon(Icons.piano),
-                    text: "Melody",
-                  ),
-
-                  Tab(
-                    icon: Icon(Icons.mic),
-                    text: "Voice",
-                  ),
-
-                  Tab(
-                    icon: Icon(Icons.movie),
-                    text: "Media",
-                  ),
-
-                  Tab(
-                    icon: Icon(Icons.publish),
-                    text: "Publish",
-                  ),
-
-                ],
-              ),
-
-            ],
-          ),
-        ),
-      ),
+              
+              
